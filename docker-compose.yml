@@ -1,26 +1,28 @@
-version: '3.8'
+version: '3.9'
+
 services:
-  db:
-    container_name: pg_container
-    image: postgres:14.1-alpine
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  postgres:
+    container_name: postgres
+    image: postgres:15.2-alpine
     restart: always
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
     ports:
       - '5432:5432'
-    volumes: 
-      - db:/var/lib/postgresql/data
+    volumes:
+      - ./initdb/init-postgres-db.sql:/docker-entrypoint-initdb.d/init-postgres-db.sql:ro
 
-  pgadmin:
-    container_name: pgadmin_container
-    image: dpage/pgadmin4
+  mongo:
+    container_name: mongo
+    image: mongo:latest
     restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: root
     ports:
-      - "5050:80" 
-volumes:
-  db:
-    driver: local
+      - '27017:27017'
