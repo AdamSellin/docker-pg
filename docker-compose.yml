@@ -2,14 +2,14 @@ version: '3.9'
 
 services:
   adminer:
-    image: adminer
+    image: adminer_container
     container_name: adminer
     restart: always
     ports:
       - 8080:8080
 
   postgres:
-    container_name: postgres
+    container_name: postgres_container
     image: postgres:15.2-alpine
     restart: always
     environment:
@@ -21,7 +21,7 @@ services:
       - ./initdb/init-postgres-db.sql:/docker-entrypoint-initdb.d/init-postgres-db.sql:ro
 
   mongo:
-    container_name: mongo
+    container_name: mongo_container
     image: mongo:latest
     restart: always
     ports:
