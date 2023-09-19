@@ -2,8 +2,8 @@ version: '3.9'
 
 services:
   adminer:
-    image: adminer_container
-    container_name: adminer
+    container_name: adminer_container
+    image: adminer
     restart: always
     ports:
       - 8080:8080
